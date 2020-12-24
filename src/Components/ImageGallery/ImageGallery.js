@@ -39,7 +39,6 @@ export default function ImageGallery({ search }) {
       })
       .then((data) => {
         setSearchQuery(data.hits);
-        setPage(1);
         setStatus("resolved");
       })
       .catch((error) => {
