@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Searchbar from "./Components/Searchbar";
+import ImageGallery from "./Components/ImageGallery";
 import "./App.css";
 
 export default function App() {
@@ -14,6 +15,8 @@ export default function App() {
   return (
     <div>
       <Searchbar formSubmit={handleFormSubmit} />
+
+      <ImageGallery search={search} />
 
       <ToastContainer />
     </div>

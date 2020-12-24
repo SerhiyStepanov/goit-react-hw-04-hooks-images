@@ -13,13 +13,13 @@ export default function Modal({ onCloseModal, children }) {
     };
   }, []);
 
-  handleKeydown = (e) => {
+  const handleKeydown = (e) => {
     if (e.code === "Escape") {
       onCloseModal();
     }
   };
 
-  handleBackdropClick = (e) => {
+  const handleBackdropClick = (e) => {
     if (e.currentTarget === e.target) {
       onCloseModal();
     }
