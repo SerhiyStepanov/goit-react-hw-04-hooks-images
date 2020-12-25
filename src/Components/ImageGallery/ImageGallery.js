@@ -25,9 +25,8 @@ export default function ImageGallery({ search }) {
     }
 
     setStatus("pending");
-    setPage(1);
 
-    apiFetch(search, page)
+    apiFetch(search, 1)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -47,12 +46,10 @@ export default function ImageGallery({ search }) {
   }, [search]);
 
   useEffect(() => {
-    const nextPage = page + 1;
-
     if (page !== 1) {
       setStatus("pending");
 
-      apiFetch(search, nextPage)
+      apiFetch(search, page)
         .then((res) => res.json())
         .then((data) => {
           setSearchQuery((state) => [...state, ...data.hits]);
