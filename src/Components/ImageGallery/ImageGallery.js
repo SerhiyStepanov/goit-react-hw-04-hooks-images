@@ -25,6 +25,7 @@ export default function ImageGallery({ search }) {
     }
 
     setStatus("pending");
+    setPage(1);
 
     apiFetch(search, page)
       .then((response) => {
@@ -38,15 +39,27 @@ export default function ImageGallery({ search }) {
       .then((data) => {
         setSearchQuery(data.hits);
         setStatus("resolved");
-        if (page !== 1) {
-          setSearchQuery([...searchQuery, ...data.hits]);
-        }
       })
       .catch((error) => {
         setError(error);
         setStatus("rejected");
       });
-  }, [search, page]);
+  }, [search]);
+
+  useEffect(() => {
+    const nextPage = page + 1;
+
+    if (page !== 1) {
+      setStatus("pending");
+
+      apiFetch(search, nextPage)
+        .then((res) => res.json())
+        .then((data) => {
+          setSearchQuery((state) => [...state, ...data.hits]);
+          setStatus("resolved");
+        });
+    }
+  }, [page]);
 
   const handleChangePage = () => {
     setPage((page) => page + 1);
