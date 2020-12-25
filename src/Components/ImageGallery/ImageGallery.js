@@ -6,9 +6,7 @@ import Button from "../Button";
 import s from "./ImageGallery.module.css";
 
 export default function ImageGallery({ search }) {
-  const [searchQuery, setSearchQuery] = useState(() => {
-    return null ?? [];
-  });
+  const [searchQuery, setSearchQuery] = useState([]);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState("idle");
   const [page, setPage] = useState(1);
@@ -40,6 +38,9 @@ export default function ImageGallery({ search }) {
       .then((data) => {
         setSearchQuery(data.hits);
         setStatus("resolved");
+        if (page !== 1) {
+          setSearchQuery([...searchQuery, ...data.hits]);
+        }
       })
       .catch((error) => {
         setError(error);
@@ -48,7 +49,7 @@ export default function ImageGallery({ search }) {
   }, [search, page]);
 
   const handleChangePage = () => {
-    setPage((state) => state + 1);
+    setPage((page) => page + 1);
   };
 
   const openModal = (largeImageURL) => {
