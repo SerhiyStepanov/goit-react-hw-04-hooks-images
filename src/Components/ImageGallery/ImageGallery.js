@@ -25,6 +25,7 @@ export default function ImageGallery({ search }) {
     }
 
     setStatus("pending");
+    setPage(1);
 
     apiFetch(search, 1)
       .then((response) => {
@@ -90,7 +91,7 @@ export default function ImageGallery({ search }) {
               />
             ))}
           </ul>
-          <Button btnLoad={handleChangePage} />
+          <Button btnLoad={() => handleChangePage()} />
           {showModal && (
             <Modal onCloseModal={closeModal}>
               {<img src={imageModal} alt="" />}
